@@ -1,0 +1,31 @@
+﻿
+@page "/score"
+
+
+@inject IScoreboard score
+@*  @rendermode InteractiveServer  *@
+
+<button class="btn btn-primary" @onclick="SavetoScoreboard">CLICK ADD TO SCORE </button>
+
+
+@* <Counter/> *@
+
+
+
+@code{
+
+
+    protected override void OnInitialized()
+    {
+        Console.WriteLine("youlo");
+    }
+
+    private async Task SavetoScoreboard()
+    {
+        Console.WriteLine("buttonpressed");
+       
+
+    }
+
+}
+
