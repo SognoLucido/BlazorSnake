@@ -1,8 +1,7 @@
 ﻿
 
-@* @page "/snake" *@
+
 @rendermode InteractiveAuto
-@* @rendermode InteractiveWebAssembly *@
 @inject Snakebodyv1_5 Snbodyv1_5
 @inject NavigationManager nav
 
@@ -77,44 +76,6 @@
 
 
 
-           @*  <div class="col d-lg-flex justify-content-lg-center align-items-lg-center">
-                <div class="vstack align-content-center flex-wrap py-4 py-xl-5">
-                    <div class="hstack gap-1 flex-wrap" style="width: 238px;">
-
-                        @if (Snbodyv1_5 is null)
-                        {
-                            @foreach (var i in Ring)
-                            {
-                                <div class="border rounded-0 border-dark" style="width:20px;height:20px"></div>
-                            }
-                        }
-                        else
-                        {
-                            @foreach (var i in Ring)
-                            {
-                                @if (Snbodyv1_5.NumbersSet.Contains(i))
-                                {
-                                    <div class="border rounded-0 border-dark bg-dark" style="width:20px;height:20px"></div>
-                                }
-                                else if (i == Snbodyv1_5.Foodposition)
-                                {
-                                    <div class="border rounded-0 border-dark bg-danger" style="width:20px;height:20px"></div>
-                                }
-                                else
-                                {
-                                    <div class="border rounded-0 border-dark" style="width:20px;height:20px"></div>
-                                }
-                            }
-                        }
-
-                    </div>
-                    <p class="text-center pt-2"> <strong>PRESSED KEY = @pressedKey</strong></p>
-                </div>
-            </div>
-
- *@
-
-
             @if (Snbodyv1_5.GameStarted && Snbodyv1_5.GameFinished && !Snbodyv1_5.ValueSubmit)
             {
             <div class="col">
@@ -143,11 +104,7 @@
                                                 <div class="mb-3"></div>
                                                 <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Submit</button></div>
 
-                                        @* <form class="text-center" method="post">
-                                            <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email" /></div>
-                                            <div class="mb-3"></div>
-                                            <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Login</button></div>
-                                        </form> *@
+                                     
 
 
                                         </EditForm>

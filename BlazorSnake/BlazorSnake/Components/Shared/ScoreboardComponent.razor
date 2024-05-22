@@ -30,8 +30,8 @@ else if (Version == "1.5")
     private async Task Scoreupdate((int points,string Username ,float Version) info)
     {
 
-        Console.WriteLine("updating");
-        scorev2 = info.points;
+       
+        // scorev2 = info.points;
 
          LeaderboardModel model = new()
         {
@@ -43,21 +43,11 @@ else if (Version == "1.5")
 
         await scoreb.InsertTo(model);
 
-        Console.WriteLine("end");
+        
     }
 
 
-    protected override void OnInitialized()
-    {
-        Console.WriteLine("youlo");
-    }
-
-    private async Task SavetoScoreboard()
-    {
-        Console.WriteLine("buttonpressed");
-       
-
-    }
+    
 
 }
 

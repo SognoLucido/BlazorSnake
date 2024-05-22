@@ -1,10 +1,9 @@
 
 using BlazorSnake;
 using BlazorSnake.Client.Main;
-using BlazorSnake.Client.Services;
 using BlazorSnake.Components;
-
 using Dbleaderboardsave;
+using Microsoft.AspNetCore.Mvc;
 
 
 
@@ -19,10 +18,10 @@ builder.Services.AddScoped<Snakebodyv1>();
 builder.Services.AddScoped<Snakebodyv1_5>();
 
 builder.Services.AddScoped<IDatabasecore,Databasecore>();
-//builder.Services.AddSingleton<ILeaderboardService, ServerLeaderboardService>();
 
 
-builder.Services.AddControllers();
+
+//builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -45,7 +44,18 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();
 
-app.MapControllers();
+//app.MapControllers();
+
+app.MapGet("/api/Leaderboard", async ([FromServices] IDatabasecore board, [FromQuery] float? vers) =>
+{
+    if (vers is null) 
+    {
+        return Results.BadRequest(); 
+    }
+
+    return Results.Ok(await board.GetScoreboard(vers)); 
+});
+
 
 
 app.MapRazorComponents<App>()

@@ -12,8 +12,6 @@ namespace BlazorSnake
         public static IApplicationBuilder UseDbstartconfig(this IApplicationBuilder app, IConfiguration conf)
         {
 
-
-
             try
             {
 

@@ -19,7 +19,7 @@ public class Databasecore : IDatabasecore
 
 
 
-    public async Task<IEnumerable<LeaderboardModel>> GetScoreboard(float vers)
+    public async Task<IEnumerable<LeaderboardModel>> GetScoreboard(float? vers)
     {
         var sql = "SELECT Name,Score,Version FROM Scoreboard WHERE Version = @Version  ";
 
@@ -27,18 +27,11 @@ public class Databasecore : IDatabasecore
         using (var conn = new SQLiteConnection(_configuration.GetConnectionString("Sqlite")))
         {
 
-
-            //var x =  conn.Query<LeaderboardModel>(sql, new {Version = vers}).ToList();
-
             return await conn.QueryAsync<LeaderboardModel>(sql, new { Version = vers }).ConfigureAwait(false);
-
-            //List<LeaderboardModel> scores = x.ToList();
 
         }
 
-        //List<LeaderboardModel> result = new();
-
-        //return result;
+       
     }
 
     public async Task InsertTo(LeaderboardModel model)

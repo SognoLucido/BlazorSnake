@@ -5,7 +5,7 @@
 
         public event EventHandler? DataUpdater;
 
-        public List<int> NumbersSet { get; private set; } = [155];
+        public List<int> NumbersSet { get; private set; } = [200];
 
         public bool Restart { get; set; }
         public bool GameStarted { get; private set; } = false;
