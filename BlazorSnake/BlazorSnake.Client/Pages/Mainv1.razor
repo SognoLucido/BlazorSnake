@@ -1,0 +1,239 @@
+﻿
+
+@* @page "/snake" *@
+@rendermode InteractiveAuto
+@* @rendermode InteractiveWebAssembly *@
+@inject Snakebodyv1 Snbodyv1
+@inject NavigationManager nav
+
+
+
+
+
+<article class="top-row px-4" @ref="testRef" tabindex="0" style="width=300px;height:500px;outline:none;" @onkeydown="HandleKeyDown">
+    <div class="mt-3">
+        
+         @if(Snbodyv1.GameStarted && Snbodyv1.GameFinished && Snbodyv1.ValueSubmit)
+        {
+            <h1 class="text-center">Game Over - Score: @Snbodyv1.Score</h1>
+        }
+        else if (Snbodyv1.GameStarted && Snbodyv1.GameFinished && !Snbodyv1.ValueSubmit)
+        {
+             <h1 class="text-center">Game Over</h1>
+        }
+        else
+        {
+            <h1 class="text-center">Score: @Snbodyv1.Score</h1>
+        }
+
+        <hr />
+    </div>
+    <div class="container mt-0">
+        <div class="row mt-3">
+            <div class="col d-lg-flex justify-content-lg-center align-items-lg-center">
+                <div class="vstack align-content-center flex-wrap py-4 py-xl-5">
+                    <div class="hstack gap-1 flex-wrap" style="width: 238px;">
+
+                        @if (Snbodyv1 is null)
+                        {
+                            @foreach (var i in Ring)
+                            {
+                                <div class="border rounded-0 border-dark" style="width:20px;height:20px"></div>
+                            }
+                        }
+                        else
+                        {
+                            @foreach (var i in Ring)
+                            {
+                                @if (Snbodyv1.NumbersSet.Contains(i))
+                                {
+                                    <div class="border rounded-0 border-dark bg-dark" style="width:20px;height:20px"></div>
+                                }
+                                else if (i == Snbodyv1.Foodposition)
+                                {
+                                    <div class="border rounded-0 border-dark bg-danger" style="width:20px;height:20px"></div>
+                                }
+                                else
+                                {
+                                    <div class="border rounded-0 border-dark" style="width:20px;height:20px"></div>
+                                }
+                            }
+                        }
+
+                    </div>
+                    <p class="text-center pt-2"> <strong>PRESSED KEY = @pressedKey</strong></p>
+                </div>
+            </div>
+
+            @if(Snbodyv1.GameStarted && Snbodyv1.GameFinished && !Snbodyv1.ValueSubmit)
+            {
+            <div class="col">
+                <section class="position-relative py-4 py-xl-5">
+                    <div class="container">
+                        <div class="row mb-2">
+                            <div class="col-md-8 col-xl-6 text-center mx-auto">
+                                    <h2>Score : @Snbodyv1.Score </h2>
+                                <p class="w-lg-50"></p>
+                            </div>
+                        </div>
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-9">
+                                <div class="card mb-5">
+                                    <div class="card-body d-flex flex-column align-items-center mt-3">
+
+
+                                            <EditForm Model="Input" method="post" class="text-center" OnValidSubmit="Sendinfo" FormName="login">
+                                                <AntiforgeryToken/>
+                                                <DataAnnotationsValidator />
+                                                <ValidationSummary class="text-danger" role="alert" />
+
+                                                <div class="mb-3">
+                                                <InputText @bind-Value="Input.Username" class="form-control" autocomplete="username" aria-required="true" placeholder="Username" />
+                                                </div>
+                                                <div class="mb-3"></div>
+                                                <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Submit</button></div>
+
+                                        @* <form class="text-center" method="post">
+                                            <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email" /></div>
+                                            <div class="mb-3"></div>
+                                            <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Login</button></div>
+                                        </form> *@
+
+
+                                        </EditForm>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            }
+
+
+        </div>
+    </div>
+    <hr />
+    <div class="container d-flex justify-content-center mt-5">
+       
+        @if (Snbodyv1.GameStarted || Snbodyv1.GameFinished)
+        {
+       
+        }
+        else
+        {
+            <div class="vstack d-lg-flex justify-content-lg-center align-items-lg-center">
+                <button class="btn btn-primary w-50" type="button" @onclick="StarGame">
+                    START
+                </button>
+            </div>
+        }
+        
+        @if (Snbodyv1.Restart )
+        {
+            <div class="vstack d-lg-flex justify-content-lg-center align-items-lg-center">
+                <button class="btn btn-primary w-50" type="button" @onclick="Restart">
+                    Restart
+                </button>
+            </div>
+        }
+
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+
+@code {
+
+
+    [SupplyParameterFromForm]
+    private InputModel Input { get; set; } = new();
+
+    // Snakebody Snbodyv2 ;
+    [Parameter]
+    public EventCallback<(int,string,float)> Scoreback { get; set; }
+
+    int[] Ring = Enumerable.Range(10, 90).ToArray();
+
+
+    int score = 0;
+
+    private ElementReference testRef;
+    private string pressedKey = Snake.s.ToString();
+
+    private async void HandleKeyDown(KeyboardEventArgs e)
+    {
+        pressedKey = e.Key;
+
+        switch (e.Key.ToLower())
+        {
+            case "w":  Snbodyv1.Moveto(Snake.w); break;
+            case "a": Snbodyv1.Moveto(Snake.a); break;
+            case "s": Snbodyv1.Moveto(Snake.s); break;
+            case "d": Snbodyv1.Moveto(Snake.d); break;
+        }
+
+
+        // if (e.Key == "w") score += 5;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Snbodyv2 = new();
+            await testRef.FocusAsync();
+            Snbodyv1.DataUpdater += Updatingdata;
+            // StateHasChanged();
+        }       
+    }
+
+    private async void Updatingdata(object? sender, EventArgs e)
+    {
+        StateHasChanged();
+    }
+
+
+
+    private async void StarGame()
+    {
+        Snbodyv1.Start();
+        await testRef.FocusAsync();
+    }
+
+
+    private async Task Sendinfo()
+    {
+        Snbodyv1.ValueSubmit = true;
+
+        await Scoreback.InvokeAsync((Snbodyv1.Score, Input.Username, 1.0f));
+
+        Snbodyv1.Restart = true;
+    }
+
+
+
+
+    private sealed class InputModel
+    {
+        [Required]
+        [MaxLength(15)]
+        public string Username { get; set; } = "";
+
+    }
+
+
+    private async void Restart()
+    {
+        nav.Refresh(true);
+    }
+}

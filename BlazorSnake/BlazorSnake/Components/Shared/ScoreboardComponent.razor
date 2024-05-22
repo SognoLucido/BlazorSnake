@@ -1,18 +1,50 @@
 ﻿
-@page "/score"
+@page "/snake_v{Version}"
 
+@rendermode InteractiveServer 
+@inject IDatabasecore scoreb
 
-@inject IScoreboard score
-@*  @rendermode InteractiveServer  *@
+@* 
+ <p>score is : @scorev2</p> *@
 
-<button class="btn btn-primary" @onclick="SavetoScoreboard">CLICK ADD TO SCORE </button>
+@* <button class="btn btn-primary" @onclick="SavetoScoreboard">CLICK ADD TO SCORE </button> *@
 
+@if(Version == "1")
+{
+    <Mainv1 Scoreback=Scoreupdate />
+}
+else if (Version == "1.5")
+{
+    <Mainv1_5 Scoreback=Scoreupdate />
+}
 
-@* <Counter/> *@
 
 
 
 @code{
+    int scorev2 = 0;
+
+    [Parameter]
+    public string Version { get; set; }
+
+    private async Task Scoreupdate((int points,string Username ,float Version) info)
+    {
+
+        Console.WriteLine("updating");
+        scorev2 = info.points;
+
+         LeaderboardModel model = new()
+        {
+                Name = info.Username,
+                Score = info.points,
+                Version = info.Version
+        };
+
+
+        await scoreb.InsertTo(model);
+
+        Console.WriteLine("end");
+    }
 
 
     protected override void OnInitialized()

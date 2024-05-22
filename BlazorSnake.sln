@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorSnake", "BlazorSnake\BlazorSnake\BlazorSnake.csproj", "{80FEB49A-2940-4601-B5A0-370793A5399B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorSnake", "BlazorSnake\BlazorSnake\BlazorSnake.csproj", "{80FEB49A-2940-4601-B5A0-370793A5399B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorSnake.Client", "BlazorSnake\BlazorSnake.Client\BlazorSnake.Client.csproj", "{3E8A1757-700F-4772-90FE-7423D3E513EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorSnake.Client", "BlazorSnake\BlazorSnake.Client\BlazorSnake.Client.csproj", "{3E8A1757-700F-4772-90FE-7423D3E513EA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dbleaderboardsave", "Dbleaderboardsave\Dbleaderboardsave.csproj", "{B38EB89B-2265-415B-B220-185497057182}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{3E8A1757-700F-4772-90FE-7423D3E513EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E8A1757-700F-4772-90FE-7423D3E513EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E8A1757-700F-4772-90FE-7423D3E513EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B38EB89B-2265-415B-B220-185497057182}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B38EB89B-2265-415B-B220-185497057182}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B38EB89B-2265-415B-B220-185497057182}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B38EB89B-2265-415B-B220-185497057182}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

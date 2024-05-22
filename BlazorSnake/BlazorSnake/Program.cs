@@ -1,7 +1,10 @@
 
+using BlazorSnake;
 using BlazorSnake.Client.Main;
+using BlazorSnake.Client.Services;
 using BlazorSnake.Components;
-using BlazorSnake.Services;
+
+using Dbleaderboardsave;
 
 
 
@@ -12,11 +15,18 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
-builder.Services.AddSingleton<IScoreboard,Scoreboard>();
-builder.Services.AddScoped<Snakebody>();
+builder.Services.AddScoped<Snakebodyv1>();
+builder.Services.AddScoped<Snakebodyv1_5>();
 
+builder.Services.AddScoped<IDatabasecore,Databasecore>();
+//builder.Services.AddSingleton<ILeaderboardService, ServerLeaderboardService>();
+
+
+builder.Services.AddControllers();
 
 var app = builder.Build();
+
+app.UseDbstartconfig(app.Configuration);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -34,6 +44,9 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
+
+app.MapControllers();
+
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
