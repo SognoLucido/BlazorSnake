@@ -171,11 +171,20 @@
 
         switch (e.Key.ToLower())
         {
-            case "w":  Snbodyv1.Moveto(Snake.w); break;
-            case "a": Snbodyv1.Moveto(Snake.a); break;
-            case "s": Snbodyv1.Moveto(Snake.s); break;
-            case "d": Snbodyv1.Moveto(Snake.d); break;
+            case "w":
+            case "arrowup":
+                Snbodyv1.Moveto(Snake.w); break;
+            case "a":
+            case "arrowleft":
+                Snbodyv1.Moveto(Snake.a); break;
+            case "s":
+            case "arrowdown":
+                Snbodyv1.Moveto(Snake.s); break;
+            case "d":
+            case "arrowright":
+                Snbodyv1.Moveto(Snake.d); break;
         }
+
 
 
         // if (e.Key == "w") score += 5;
